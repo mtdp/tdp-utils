@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
+
+import com.google.common.collect.Maps;
 /**
  * 
  *
@@ -19,6 +21,41 @@ import org.springframework.beans.BeanUtils;
  *
  */
 public class BeanUtil extends BeanUtils{
+	
+	/**
+	 * bean转换成map
+	 * 
+	 * @param obj
+	 * @param map
+	 * @param isCamel2Underline true 将属性驼峰转下划线连接
+	 */
+	public static Map<String,Object> beanTrans2Map(Object obj, boolean isCamel2Underline){
+		if(obj == null){
+			return null;
+		}
+		Map<String,Object> map = Maps.newHashMap();
+		try {
+			BeanInfo beanInfo = Introspector.getBeanInfo(obj.getClass());
+			PropertyDescriptor[] propDesc = beanInfo.getPropertyDescriptors();
+			for(PropertyDescriptor prop : propDesc){
+				String key = prop.getName();
+				if(isCamel2Underline){
+					key = camel2Underline(key);
+				}
+				if("class".equals(key.toLowerCase())){
+					continue;
+				}
+				Method getter = prop.getReadMethod();
+				Object value = getter.invoke(obj);
+				map.put(key, value);
+			}
+		} catch (IntrospectionException e) {
+			throw new RuntimeException("Introspcetor获取bean信息出错",e);
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			throw new RuntimeException("获取bean对应的值出错",e);
+		}
+		return map;
+	}
 	
 	/**
 	 * bean转换成map
@@ -96,6 +133,28 @@ public class BeanUtil extends BeanUtils{
 		}
 		underlineProp = sb.toString();
 		return underlineProp;
+	}
+	
+	/**
+	 * 首字母转大写
+	 * @param str
+	 * @return
+	 */
+	public static String firstLetter2UpperCase(String str) {
+		char[] chs = str.toCharArray();
+		chs[0] -= 32;
+		return String.valueOf(chs);
+	}
+	
+	/**
+	 * 首字母转小写
+	 * @param str
+	 * @return
+	 */
+	public static String firstLetter2LowerCase(String str) {
+		char[] chs = str.toCharArray();
+		chs[0] += 32;
+		return String.valueOf(chs);
 	}
 	
 	public static void main(String[] args) {

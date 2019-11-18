@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -42,8 +43,10 @@ public class VelocityUtil {
 		Template t = ve.getTemplate(templatePath, TdpUtilConstants.CHARACTER_UTF_8);
 		
 		VelocityContext context = new VelocityContext();
-		for (String key : params.keySet()) {
-			context.put(key, params.get(key));
+		if(params != null && !params.isEmpty()) {
+			for (String key : params.keySet()) {
+				context.put(key, params.get(key));
+			}
 		}
 		
 		StringWriter writer = new StringWriter();
@@ -109,7 +112,7 @@ public class VelocityUtil {
 		return file;
 	}
 	
-	private VelocityUtil() {
-		//DO NOTHING
+	public static void main(String[] args) {
+		merge("", new HashMap<String,Object>());
 	}
 }

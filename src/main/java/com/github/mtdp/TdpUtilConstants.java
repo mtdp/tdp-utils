@@ -34,7 +34,6 @@ public class TdpUtilConstants {
 	/**gzip压缩文件的后缀名称**/
 	public static final String GZIP_EXT_NAME = ".gz";
 	
-	
 	/**http请求连接超时,单位:秒**/
 	public static final int HTTP_CONNECT_TIMEOUT = 15;
 	
