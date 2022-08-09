@@ -34,7 +34,7 @@ public class EmailUtil {
 	
 	public static void main(String[] args) {
 		
-//		smpileSend("", "测试邮件标题", "测试邮件内容");
+//		simpleSend("", "测试邮件标题", "测试邮件内容");
 		
 //		htmlSend("594566751@qq.com", "测试邮件标题", "<h1>测试邮件内容</h1>!");
 		
@@ -53,7 +53,7 @@ public class EmailUtil {
 	 * @param subJect
 	 * @param text
 	 */
-	public static void smpileSend(String email,String subJect,String text){
+	public static void simpleSend(String email,String subJect,String text){
 		try {
 			SimpleEmail s = new SimpleEmail();
 			s.setHostName(hostName);
