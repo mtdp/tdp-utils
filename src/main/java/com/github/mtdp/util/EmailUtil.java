@@ -50,10 +50,10 @@ public class EmailUtil {
 	/**
 	 * 发送简单的文本邮件
 	 * @param email
-	 * @param subJect
+	 * @param subject
 	 * @param text
 	 */
-	public static void simpleSend(String email,String subJect,String text){
+	public static void simpleSend(String email,String subject,String text){
 		try {
 			SimpleEmail s = new SimpleEmail();
 			s.setHostName(hostName);
@@ -63,7 +63,7 @@ public class EmailUtil {
 			s.addTo(email);
 			s.setFrom(userName);
 			s.setCharset(charset);
-			s.setSubject(subJect);
+			s.setSubject(subject);
 			s.setMsg(text);
 			String r = s.send();
 			logger.debug("发送邮件返回值r={}",r);
@@ -75,10 +75,10 @@ public class EmailUtil {
 	/**
 	 * 发送html邮件
 	 * @param email
-	 * @param subJect
+	 * @param subject
 	 * @param text
 	 */
-	public static void htmlSend(String email,String subJect,String text){
+	public static void htmlSend(String email,String subject,String text){
 		try{
 			HtmlEmail html = new HtmlEmail();
 			html.setHostName(hostName);
@@ -88,7 +88,7 @@ public class EmailUtil {
 			html.setAuthentication(userName, password);
 			html.setFrom(userName);
 			html.addTo(email);
-			html.setSubject(subJect);
+			html.setSubject(subject);
 			html.setHtmlMsg(text);
 			String r = html.send();
 			logger.debug("发送邮件返回值r={}",r);
@@ -101,11 +101,11 @@ public class EmailUtil {
 	/**
 	 * 发送本地附件的邮件
 	 * @param email
-	 * @param subJect
+	 * @param subject
 	 * @param text
-	 * @param attchement
+	 * @param attachment
 	 */
-	public static void attachmentSend(String email,String subJect,String text,File attchement){
+	public static void attachmentSend(String email,String subject,String text,File attachment){
 		try {
 			MultiPartEmail mp = new MultiPartEmail();
 			mp.setHostName(hostName);
@@ -115,8 +115,8 @@ public class EmailUtil {
 			mp.setAuthentication(userName, password);
 			mp.setFrom(userName);
 			mp.addTo(email);
-			mp.setSubject(subJect);
-			mp.attach(attchement);
+			mp.setSubject(subject);
+			mp.attach(attachment);
 			String r = mp.send();
 			logger.debug("发送邮件返回值r={}",r);
 		} catch (EmailException e) {
@@ -127,11 +127,11 @@ public class EmailUtil {
 	/**
 	 * 发送url附件的邮件
 	 * @param email
-	 * @param subJect
+	 * @param subject
 	 * @param text
 	 * @param url
 	 */
-	public static void attachmentSend(String email,String subJect,String text,String url){
+	public static void attachmentSend(String email,String subject,String text,String url){
 		try {
 			MultiPartEmail mp = new MultiPartEmail();
 			mp.setHostName(hostName);
@@ -141,7 +141,7 @@ public class EmailUtil {
 			mp.setAuthentication(userName, password);
 			mp.setFrom(userName);
 			mp.addTo(email);
-			mp.setSubject(subJect);
+			mp.setSubject(subject);
 			mp.attach(new URL(url), "测试名称", "附件");
 			String r = mp.send();
 			logger.debug("发送邮件返回值r={}",r);
